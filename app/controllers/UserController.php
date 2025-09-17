@@ -20,6 +20,9 @@ class UserController extends Controller {
         $data['s'] = $this->UserModel->all();
         $this->call->view('get_all', $data);
     }*/
+        public function landing_page() {
+        $this->call->view('create');
+    }
 
    
 
