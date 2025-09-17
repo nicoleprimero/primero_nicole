@@ -1,0 +1,302 @@
+/* Sofia the First Theme - Updated CSS */
+
+/* General Page Styling */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f8e6ff, #d8b4f8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: #4b0082;
+}
+
+/* Top Actions (Search + Add User) */
+.top-actions {
+  display: flex;
+  justify-content: center; /* center search bar */
+  align-items: center;
+  margin-bottom: 25px;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+}
+
+/* Search Form */
+.top-actions form {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 6px 14px;
+  border-radius: 30px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.top-actions input[type="text"] {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  font-size: 14px;
+  min-width: 250px;
+}
+
+.top-actions input::placeholder {
+  color: #b57edc;
+  font-style: italic;
+}
+
+/* Search Button */
+.top-actions button {
+  background: #b57edc;
+  color: white;
+  font-weight: bold;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.top-actions button:hover {
+  background: #9b5edc;
+  transform: scale(1.05);
+}
+
+/* Add User Button - float right */
+.top-actions .btn-add {
+  position: absolute;
+  right: 0;
+  background: #ffd966;
+  color: #4b0082;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.top-actions .btn-add:hover {
+  background: #f4c542;
+  transform: scale(1.05);
+}
+
+/* Table Styling */
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+  /* Auto width based on content */
+  width: auto;
+  min-width: 700px;   /* ensure it's not too small */
+  max-width: 95%;     /* prevent overflow on small screens */
+}
+
+/* Table Header */
+thead {
+  background: #ffd966;
+  color: #4b0082;
+  font-weight: bold;
+}
+
+thead th {
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.wand {
+    height: 28px;
+  width: 25px;
+  vertical-align: middle;
+  
+}
+
+/* Table Rows */
+tbody td {
+  padding: 12px 20px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap; /* prevent breaking values */
+}
+
+tbody tr:nth-child(even) {
+  background: #fdf5ff;
+}
+
+/* Edit & Delete Links with | separator */
+table td a {
+  color: #6a0dad;
+  font-weight: bold;
+  text-decoration: none;
+  margin: 0 4px;
+  transition: color 0.2s ease;
+}
+
+table td a:hover {
+  color: #b57edc;
+}
+
+table td a:not(:last-child)::after {
+  color: #4b0082;
+  margin-left: 4px;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 8px;
+}
+
+.pagination li {
+  list-style: none;   /* ✅ make sure li has no bullets */
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 8px 14px;
+  background: #b57edc; /* Sofia lavender */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease;
+}
+
+.pagination a:hover {
+  background: #9b5edc;
+  transform: scale(1.05);
+}
+
+.pagination .active {
+  background: #ffd966; /* Sofia royal gold */
+  color: #4b0082;
+  pointer-events: none;
+}
+
+
+
+
+
+
+
+/*add_user css*/
+
+/* ============================= */
+/* ADD & UPDATE MAGIC USER PAGE  */
+/* ============================= */
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: transparent; /* let gradient from body show */
+    margin: 0; /* reset left margin */
+}
+
+/* Center Box with background */
+.center-box {
+    background: #fff;
+    padding: 35px 30px;
+    border-radius: 20px;
+    width: 420px;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* Title */
+.center-box h1 {
+    font-size: 1.8rem;
+    margin-bottom: 22px;
+    color: #4b0082;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #4b0082;
+}
+
+.form-group input,
+.form-group select {
+    width: 95%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fdf5ff; /* light lavender fill */
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #b57edc;
+    box-shadow: 0 0 4px rgba(181, 126, 220, 0.6);
+    outline: none;
+}
+
+/* Submit button */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: #b57edc;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.submit-btn:hover {
+    background: #9b5edc;
+    transform: translateY(-2px);
+}
+
+/* Back button */
+.back-btn {
+    display: inline-block;
+    margin-top: 16px;
+    padding: 10px 18px;
+    background: #ffd966;
+    color: #4b0082;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: background 0.2s, transform 0.1s;
+}
+
+.back-btn:hover {
+    background: #f4c542;
+    transform: translateY(-2px);
+}
