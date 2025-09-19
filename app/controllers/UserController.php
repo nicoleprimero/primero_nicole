@@ -74,59 +74,50 @@ class UserController extends Controller {
         redirect('users/view');
     }
 
-    public function get_all($page = 1)
+    public function all()
 {
-    try {
-        // Per page settings
-        $per_page = isset($_GET['per_page']) ? (int)$_GET['per_page'] : 5;
-        $allowed_per_page = [5, 10, 50, 100];
-        if (!in_array($per_page, $allowed_per_page)) {
-            $per_page = 5;
-        }
-
-        // Search term
-        $q = isset($_GET['q']) ? trim($_GET['q']) : '';
-
-        // Ensure page is valid
-        $page = max(1, (int)$page);
-
-        // Offset for pagination
-        $offset = ($page - 1) * $per_page;
-
-        // Total rows + fetch data depending on search
-        if ($q !== '') {
-            $total_rows = $this->UserModel->count_filtered_records($q);
-            $users = $this->UserModel->get_filtered_records($q, $per_page, $offset);
-        } else {
-            $total_rows = $this->UserModel->count_all_records();
-            $users = $this->UserModel->get_records_with_pagination("LIMIT {$offset}, {$per_page}");
-        }
-
-        // Pagination setup
-        $pagination_data = $this->pagination->initialize(
-            $total_rows,
-            $per_page,
-            $page,
-            'get_all',
-            1
-        );
-
-        // Pass data to view
-        $data['users']            = $users;
-        $data['total_records']    = $total_rows;
-        $data['pagination_data']  = $pagination_data;
-        $data['pagination_links'] = $this->pagination->paginate();
-        $data['error']            = isset($_GET['error']) ? htmlspecialchars($_GET['error']) : '';
-        $data['q']                = $q; // keep search value in view
-
-        $this->call->view('view_page', $data);
-
-    } catch (Exception $e) {
-        $error_msg = urlencode($e->getMessage());
-        redirect('users/get_all/1?error=' . $error_msg);
+    // Current page
+    $page = 1;
+    if (isset($_GET['page']) && ! empty($_GET['page'])) {
+        $page = (int) $this->io->get('page');
     }
-}
 
+    // Search term
+    $q = '';
+    if (isset($_GET['q']) && ! empty($_GET['q'])) {
+        $q = trim($this->io->get('q'));
+    }
+
+    // Records per page
+    $records_per_page = 10;
+    $allowed_per_page = [5, 10, 50, 100];
+    if (isset($_GET['per_page']) && in_array((int)$_GET['per_page'], $allowed_per_page)) {
+        $records_per_page = (int)$_GET['per_page'];
+    }
+
+    // Fetch records + total count
+    $all = $this->UserModel->page($q, $records_per_page, $page);
+    $data['users'] = $all['records'];
+    $total_rows = $all['total_rows'];
+
+    // Pagination setup
+    $this->pagination->set_options([
+        'first_link'     => '⏮ First',
+        'last_link'      => 'Last ⏭',
+        'next_link'      => 'Next →',
+        'prev_link'      => '← Prev',
+        'page_delimiter' => '&page='
+    ]);
+    $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
+    $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('users').'?q='.$q);
+
+    // Pass pagination + query back to view
+    $data['page'] = $this->pagination->paginate();
+    $data['q'] = $q;
+
+    // Render view
+    $this->call->view('view_page', $data);
+}
 
 
 }

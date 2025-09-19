@@ -4,18 +4,29 @@
   <meta charset="UTF-8">
   <title>Sofia’s Magic Users</title>
   <link rel="stylesheet" href="<?= base_url(); ?>/public/css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
 <body>
 
+
 <div class="top-actions">
   <!-- 🔮 Server-side search (stays on view_page) -->
-  <form method="get" action="<?= site_url('users/view'); ?>">
-  <input type="text" name="q" id="searchInput"
-         value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>"
-         placeholder="🔮 Search...">
-  <button type="submit" >Search</button>
-</form>
+	<form action="<?=site_url('users/view');?>" method="get" class="col-sm-4 float-end d-flex">
+		<?php
+		$q = '';
+		if(isset($_GET['q'])) {
+			$q = $_GET['q'];
+		}
+		?>
+        <input class="form-control me-2" name="q" type="text" 
+            placeholder="🔮 Search..." id="searchInput" value="<?=html_escape($q);?>">
+        <button type="submit" class="btn btn-primary" type="button">Search</button>
+	</form>
+
+
+
 
 
   <a href="<?= site_url('users/add_User'); ?>" class="btn btn-add">+ Add User</a>
@@ -33,13 +44,12 @@
       </tr>
     </thead>
     <tbody>
-      <?php if (!empty($users)): ?>
-        <?php foreach ($users as $user): ?>
+        <?php foreach (html_escape($users) as $user): ?>
           <tr>
             <td><?= $user['id']; ?></td>
-            <td><?= htmlspecialchars($user['username']); ?></td>
-            <td><?= htmlspecialchars($user['email']); ?></td>
-            <td><?= htmlspecialchars($user['role']); ?></td>
+            <td><?= $user['username']; ?></td>
+            <td><?= $user['email']; ?></td>
+            <td><?= $user['role']; ?></td>
             <td>
               <a href="<?= site_url('users/update_User/'.$user['id']); ?>" class="btn btn-edit">Edit</a> | 
               <a href="<?= site_url('users/delete/'.$user['id']); ?>" 
@@ -48,73 +58,12 @@
             </td>
           </tr>
         <?php endforeach; ?>
-      <?php else: ?>
-        <tr>
-          <td colspan="5" class="no-users">No users found ✨</td>
-        </tr>
-      <?php endif; ?>
+      
     </tbody>
   </table>
+  	<?php
+	echo $page;?>
 </div>
-
-<div class="pagination">
-  <!-- ✅ Ensure pagination keeps ?q=... -->
-  <?php if (isset($pagination_links)) : ?>
-    <?= $pagination_links ?>
-  <?php endif; ?>
-</div>
-
-<script>
-const inputEl = document.getElementById("searchInput");
-const table = document.querySelector(".magic-table tbody");
-const searchBtn = document.getElementById("searchBtn"); // your search button
-
-// Use 'input' event instead of 'keyup' to detect all changes
-inputEl.addEventListener("input", filterTable);
-searchBtn.addEventListener("click", filterTable);
-
-function filterTable() {
-    const filter = inputEl.value.toLowerCase();
-    const rows = table.querySelectorAll("tr:not(.no-users)"); // ignore "no users" row
-    let hasResults = false;
-
-    // Filter rows
-    rows.forEach(row => {
-        const text = row.textContent.toLowerCase();
-        if (text.includes(filter) && filter.length >= 3) {
-            row.style.display = "";
-            hasResults = true;
-        } else {
-            row.style.display = "none";
-        }
-    });
-
-    // Remove old "no users found" row
-    const oldNoUsers = table.querySelector(".no-users");
-    if (oldNoUsers) oldNoUsers.remove();
-
-    // Show "No users found" only if no match and filter >= 3 chars
-    if (!hasResults && filter.length >= 3) {
-        const tr = document.createElement("tr");
-        tr.classList.add("no-users");
-        const td = document.createElement("td");
-        td.colSpan = table.rows[0].cells.length;
-        td.textContent = "No users found ✨";
-        td.style.textAlign = "center";
-        tr.appendChild(td);
-        table.appendChild(tr);
-    }
-
-    // If input < 3 chars, show all rows
-    if (filter.length < 3) {
-        rows.forEach(row => row.style.display = "");
-    }
-}
-</script>
-
-
-
-
 
 
 </body>

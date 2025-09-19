@@ -34,7 +34,36 @@ class UserModel extends Model {
        return $this->db->table('magicusers')->where('id', $id)->delete();
    }
 
-    public function count_all_records()
+
+   public function page($q, $records_per_page = null, $page = null) {
+            if (is_null($page)) {
+                return $this->db->table('authors')->get_all();
+            } else {
+                $query = $this->db->table('authors');
+                
+                // Build LIKE conditions
+                $query->like('id', '%'.$q.'%')
+                    ->or_like('username', '%'.$q.'%')
+                    ->or_like('email', '%'.$q.'%')
+                    ->or_like('role', '%'.$q.'%');
+                    
+
+                // Clone before pagination
+                $countQuery = clone $query;
+
+                $data['total_rows'] = $countQuery->select_count('*', 'count')
+                                                ->get()['count'];
+
+                $data['records'] = $query->pagination($records_per_page, $page)
+                                        ->get_all();
+
+                return $data;
+            }
+        }
+
+
+
+    /*public function count_all_records()
     {
         $sql = "SELECT COUNT({$this->primary_key}) as total FROM {$this->table} WHERE 1=1";
         $result = $this->db->raw($sql);
@@ -69,6 +98,6 @@ public function get_filtered_records($q, $limit, $offset)
     $result = $this->db->raw($sql, [$like, $like, $like]);
     return $result ? $result->fetchAll(PDO::FETCH_ASSOC) : [];
 }
-
+*/
 
 }
