@@ -74,12 +74,12 @@ class UserController extends Controller {
         redirect('users/view');
     }
 
-    public function all()
+    public function get_all()
 {
     // Current page
     $page = 1;
     if (isset($_GET['page']) && ! empty($_GET['page'])) {
-        $page = (int) $this->io->get('page');
+        $page = $this->io->get('page');
     }
 
     // Search term
@@ -88,36 +88,21 @@ class UserController extends Controller {
         $q = trim($this->io->get('q'));
     }
 
-    // Records per page
     $records_per_page = 10;
-    $allowed_per_page = [5, 10, 50, 100];
-    if (isset($_GET['per_page']) && in_array((int)$_GET['per_page'], $allowed_per_page)) {
-        $records_per_page = (int)$_GET['per_page'];
+
+    $all = $this->author_model->page($q, $records_per_page, $page);
+        $data['all'] = $all['records'];
+        $total_rows = $all['total_rows'];
+        $this->pagination->set_options([
+            'first_link'     => '⏮ First',
+            'last_link'      => 'Last ⏭',
+            'next_link'      => 'Next →',
+            'prev_link'      => '← Prev',
+            'page_delimiter' => '&page='
+        ]);
+        $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
+        $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('author').'?q='.$q);
+        $data['page'] = $this->pagination->paginate();
+        $this->call->view('view_page', $data);
     }
-
-    // Fetch records + total count
-    $all = $this->UserModel->page($q, $records_per_page, $page);
-    $data['users'] = $all['records'];
-    $total_rows = $all['total_rows'];
-
-    // Pagination setup
-    $this->pagination->set_options([
-        'first_link'     => '⏮ First',
-        'last_link'      => 'Last ⏭',
-        'next_link'      => 'Next →',
-        'prev_link'      => '← Prev',
-        'page_delimiter' => '&page='
-    ]);
-    $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
-    $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('users').'?q='.$q);
-
-    // Pass pagination + query back to view
-    $data['page'] = $this->pagination->paginate();
-    $data['q'] = $q;
-
-    // Render view
-    $this->call->view('view_page', $data);
-}
-
-
 }
