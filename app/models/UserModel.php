@@ -37,9 +37,9 @@ class UserModel extends Model {
 
    public function page($q, $records_per_page = null, $page = null) {
             if (is_null($page)) {
-                return $this->db->table('sofia')->get_all();
+                return $this->db->table('magicusers')->get_all();
             } else {
-                $query = $this->db->table('sofia');
+                $query = $this->db->table('magicusers');
                 
                 // Build LIKE conditions
                 $query->like('id', '%'.$q.'%')
