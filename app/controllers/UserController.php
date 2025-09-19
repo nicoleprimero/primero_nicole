@@ -79,7 +79,7 @@ class UserController extends Controller {
     // Current page
     $page = 1;
     if (isset($_GET['page']) && ! empty($_GET['page'])) {
-        $page = $this->io->get('page');
+        $page = $this->io->get('view_page');
     }
 
     // Search term
