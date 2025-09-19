@@ -44,7 +44,7 @@
       </tr>
     </thead>
     <tbody>
-        <?php foreach ($users as $user): ?>
+        <?php foreach ($all as $user): ?>
           <tr>
             <td><?= $user['id']; ?></td>
             <td><?= $user['username']; ?></td>
