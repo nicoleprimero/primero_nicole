@@ -90,7 +90,7 @@ class UserController extends Controller {
 
     $records_per_page = 10;
 
-    $all = $this->UserController->page($q, $records_per_page, $page);
+    $all = $this->UserModel->page($q, $records_per_page, $page);
         $data['all'] = $all['records'];
         $total_rows = $all['total_rows'];
         $this->pagination->set_options([
