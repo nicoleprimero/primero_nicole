@@ -13,7 +13,7 @@
 
 <div class="top-actions">
   <!-- 🔮 Server-side search (stays on view_page) -->
-	<form action="<?=site_url('users/view');?>" method="get" class="col-sm-4 float-end d-flex">
+	<form action="<?=site_url('user');?>" method="get" class="col-sm-4 float-end d-flex">
 		<?php
 		$q = '';
 		if(isset($_GET['q'])) {
