@@ -101,7 +101,7 @@ class UserController extends Controller {
             'page_delimiter' => '&page='
         ]);
         $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
-        $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('users/view').'?q='.$q);
+        $this->pagination->initialize($total_rows, $records_per_page, $page, site_url('users/view'.'?q='.$q));
         $data['page'] = $this->pagination->paginate();
         $this->call->view('view_page', $data);
     }
