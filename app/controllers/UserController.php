@@ -80,16 +80,6 @@ class UserController extends Controller {
    public function get_account()
 {
 
-    // ✅ Get user from session
-    $LAVA =& lava_instance();
-    $user = $LAVA->session->userdata('user'); // adjust to how you store session data
-
-    // ✅ Restrict to Admin role only
-    if (!isset($user['role']) || $user['role'] !== 'Admin') {
-        flash_alert('error', '⛔ Access denied! Admins only.');
-        redirect('start'); // or landing page
-        return;
-    }
 
     // Current page
     $acc = 1;
