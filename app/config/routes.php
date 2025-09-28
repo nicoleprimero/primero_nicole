@@ -49,7 +49,7 @@ $router->get('/users/view', 'UserController::get_all');
 $router->match('/users/add_User', 'UserController::create', ['GET', 'POST']);
 $router->match('/users/update_User/{id}', 'UserController::update', array('GET', 'POST'));
 $router->match('/users/delete/{id}', 'UserController::delete', array('GET', 'POST'));
-$router->match('users/account', 'UserController::user_view', array('GET', 'POST'));
+$router->match('users/account', 'UserController::get_account', array('GET', 'POST'));
 
 
 

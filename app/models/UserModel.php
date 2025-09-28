@@ -62,6 +62,33 @@ class UserModel extends Model {
         }
 
 
+     public function acc($q, $records_per_page = null, $page = null) {
+            if (is_null($acc)) {
+                return $this->db->table('users')->get_all();
+            } else {
+                $query = $this->db->table('users');
+                
+                // Build LIKE conditions
+                $query->like('id', '%'.$q.'%')
+                    ->or_like('username', '%'.$q.'%')
+                    ->or_like('email', '%'.$q.'%')
+                    ->or_like('role', '%'.$q.'%');
+                    
+
+                // Clone before pagination
+                $countQuery = clone $query;
+
+                $data['total_rows'] = $countQuery->select_count('*', 'count')
+                                                ->get()['count'];
+
+                $data['records'] = $query->pagination($records_per_page, $page)
+                                        ->get_all();
+
+                return $data;
+            }
+        }
+
+
 
     /*public function count_all_records()
     {
