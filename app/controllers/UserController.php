@@ -92,7 +92,7 @@ class UserController extends Controller {
     // ✅ Restrict to Admin role only
     if (!isset($user['role']) || $user['role'] !== 'Admin') {
         flash_alert('error', '⛔ Access denied! Admins only.');
-        redirect('/home'); // or landing page
+        redirect('/start'); // or landing page
         return;
     }
 

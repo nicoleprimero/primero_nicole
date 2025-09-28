@@ -97,7 +97,7 @@ class Lauth {
 	 * @param  string $password Password
 	 * @return string Validated Username
 	 */
-	public function login($email, $password)
+	public function login($email, $password, $role='Admin')
 	{				
     	$row = $this->LAVA->db
     					->table('users') 					
