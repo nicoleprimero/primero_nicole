@@ -72,7 +72,8 @@
                 logForm.validate({
                     rules: {
                         email: { required: true },
-                        password: { required: true }
+                        password: { required: true },
+                        role: { required: true }
                     },
                     messages: {
                         email: { required: "Please input your email address." },
