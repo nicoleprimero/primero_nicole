@@ -11,15 +11,15 @@ class UserController extends Controller {
     {
         parent::__construct();
       
-       
-        
+        if(! logged_in()) {
+            redirect('auth');
+        }
+    
     }
 
-    /*public function get_all(){
-       
-        $data['s'] = $this->UserModel->all();
-        $this->call->view('get_all', $data);
-    }*/
+    public function index() {
+        $this->call->view('view_page');
+    }
 
 
     public function landing_page() {
