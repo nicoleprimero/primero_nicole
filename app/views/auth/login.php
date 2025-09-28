@@ -43,6 +43,11 @@
                            name="password" minlength="8" required autocomplete="current-password">
                 </div>
 
+                <span class="invalid-feedback" role="alert">
+                    <strong><?= $LAVA->session->flashdata('err_message'); ?></strong>
+                </span>
+
+
                 <input type="submit" value="Login" class="submit-btn">
 
                 <div class="form-links">

@@ -29,7 +29,7 @@
 
 
 
-  <a href="<?= site_url('/register'); ?>" class="btn btn-add">+ Add User</a>
+  <a href="<?= site_url('auth/register'); ?>" class="btn btn-add">+ Add User</a>
 </div>
 
 <div class="table-container">

@@ -113,38 +113,39 @@ class Lauth {
 		}
 	}*/
 
-	 public function login($email, $password)
+	public function login($email, $password)
 {
-    // ✅ Get LavaLust instance
     $LAVA = lava_instance();
 
-    // ✅ Get single user row
     $user = $LAVA->db->table('users')
                      ->where('email', $email)
                      ->get();
-                
+                     
 
     if ($user && password_verify($password, $user['password'])) {
-
-        // ✅ Only allow Admins
-        if (isset($user['role']) && $user['role'] === 'Admin') {
-            $LAVA->session->set_userdata([
-                'user_id'   => $user['id'],
-                'email'     => $user['email'],
-                'role'      => $user['role'],
-                'logged_in' => true
-            ]);
-            return true;
-        } else {
-            // ❌ Non-admin login attempt
-            $LAVA->session->set_flashdata('error', '⛔ Access denied. Admins only.');
+        // ❌ Block if not Admin
+        if (!isset($user['role']) || $user['role'] !== 'Admin') {
+            $LAVA->session->set_flashdata('err_message', '⛔ Invalid access. Admins only.');
+            $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
             return false;
         }
+
+        // ✅ Admin allowed
+        $LAVA->session->set_userdata([
+            'user_id'   => $user['id'],
+            'email'     => $user['email'],
+            'role'      => $user['role'],
+            'logged_in' => true
+        ]);
+        return true;
     }
 
-    // ❌ Invalid credentials
+    // ❌ Wrong credentials
+    $LAVA->session->set_flashdata('err_message', '❌ Email or Password does not match.');
+    $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
     return false;
 }
+
 
 	/**
 	 * Change Password
