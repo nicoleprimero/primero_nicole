@@ -115,32 +115,36 @@ class Lauth {
 
 	 public function login($email, $password)
 {
+    // ✅ Get LavaLust instance
+    $LAVA = lava_instance();
+
     // ✅ Get single user row
-    $user = $this->LAVA->db->table('users')
+    $user = $LAVA->db->table('users')
                      ->where('email', $email)
-                     ->get();
+                     ->get()
+                     ->getRowArray();
 
     if ($user && password_verify($password, $user['password'])) {
 
         // ✅ Only allow Admins
         if (isset($user['role']) && $user['role'] === 'Admin') {
-            $this->session->set_userdata([
+            $LAVA->session->set_userdata([
                 'user_id'   => $user['id'],
                 'email'     => $user['email'],
                 'role'      => $user['role'],
                 'logged_in' => true
             ]);
-            return true; // login success
+            return true;
         } else {
-            // ❌ Role mismatch
+            // ❌ Non-admin login attempt
+            $LAVA->session->set_flashdata('error', '⛔ Access denied. Admins only.');
             return false;
         }
     }
 
-    // ❌ Wrong password or user not found
+    // ❌ Invalid credentials
     return false;
 }
-
 
 	/**
 	 * Change Password
