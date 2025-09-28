@@ -77,18 +77,29 @@ class UserController extends Controller {
         redirect('users/account');
     }
 
-    public function get_account()
+   public function get_account()
 {
     // ✅ Check if logged in
     if (! logged_in()) {
-        redirect('auth');
+        redirect('auth/login');
         return; // stop execution after redirect
+    }
+
+    // ✅ Get user from session
+    $LAVA =& lava_instance();
+    $user = $LAVA->session->userdata('user'); // adjust to how you store session data
+
+    // ✅ Restrict to Admin role only
+    if (!isset($user['role']) || $user['role'] !== 'Admin') {
+        flash_alert('error', '⛔ Access denied! Admins only.');
+        redirect('/home'); // or landing page
+        return;
     }
 
     // Current page
     $acc = 1;
     if (isset($_GET['acc']) && ! empty($_GET['acc'])) {
-        $acc = $this->io->get('acc'); // fixed: was $page but should update $acc
+        $acc = $this->io->get('acc'); // fixed: correct variable
     }
 
     // Search term
@@ -117,8 +128,10 @@ class UserController extends Controller {
 
     $data['acc'] = $this->pagination->paginate();
 
+    // ✅ Only Admins get here
     $this->call->view('users_view', $data);
 }
+
 }
 
  /*   public function get_all()
