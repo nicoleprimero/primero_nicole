@@ -17,9 +17,7 @@ class UserController extends Controller {
     
     }
 
-    public function index() {
-        $this->call->view('view_page');
-    }
+    
 
 
     public function landing_page() {
