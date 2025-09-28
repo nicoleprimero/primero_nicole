@@ -79,11 +79,6 @@ class UserController extends Controller {
 
    public function get_account()
 {
-    // ✅ Check if logged in
-    if (! logged_in()) {
-        redirect('auth/login');
-        return; // stop execution after redirect
-    }
 
     // ✅ Get user from session
     $LAVA =& lava_instance();
@@ -92,7 +87,7 @@ class UserController extends Controller {
     // ✅ Restrict to Admin role only
     if (!isset($user['role']) || $user['role'] !== 'Admin') {
         flash_alert('error', '⛔ Access denied! Admins only.');
-        redirect('/start'); // or landing page
+        redirect('start'); // or landing page
         return;
     }
 
