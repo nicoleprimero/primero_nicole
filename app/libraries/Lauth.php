@@ -119,31 +119,39 @@ class Lauth {
 
     $user = $LAVA->db->table('users')
                      ->where('email', $email)
-                     ->get();
-                     
+                     ->get()
+                     ->getRowArray();
 
-    if ($user && password_verify($password, $user['password'])) {
-        // ❌ Block if not Admin
-        if (!isset($user['role']) || $user['role'] !== 'Admin') {
-            $LAVA->session->set_flashdata('err_message', '⛔ Invalid access. Admins only.');
-            $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
-            return false;
-        }
-
-        // ✅ Admin allowed
-        $LAVA->session->set_userdata([
-            'user_id'   => $user['id'],
-            'email'     => $user['email'],
-            'role'      => $user['role'],
-            'logged_in' => true
-        ]);
-        return true;
+    if (!$user) {
+        // Email not found
+        $LAVA->session->set_flashdata('err_message', '❌ Email or Password does not match.');
+        $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
+        return false;
     }
 
-    // ❌ Wrong credentials
-    $LAVA->session->set_flashdata('err_message', '❌ Email or Password does not match.');
-    $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
-    return false;
+    if (!password_verify($password, $user['password'])) {
+        // Wrong password
+        $LAVA->session->set_flashdata('err_message', '❌ Email or Password does not match.');
+        $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
+        return false;
+    }
+
+    // ✅ Role check
+    if (!isset($user['role']) || $user['role'] !== 'Admin') {
+        $LAVA->session->set_flashdata('err_message', '⛔ Invalid access. Admins only.');
+        $LAVA->session->set_flashdata('is_invalid', 'is-invalid');
+        return false;
+    }
+
+    // ✅ Passed all checks → login
+    $LAVA->session->set_userdata([
+        'user_id'   => $user['id'],
+        'email'     => $user['email'],
+        'role'      => $user['role'],
+        'logged_in' => true
+    ]);
+
+    return true;
 }
 
 

@@ -21,7 +21,7 @@
         <div class="center-box">
             <h1>🔮 Login</h1>
 
-            <?php flash_alert(); ?>
+            
             <form id="logForm" method="POST" action="<?=site_url('auth/login');?>">
 
                 <?php csrf_field(); ?>
@@ -43,9 +43,11 @@
                            name="password" minlength="8" required autocomplete="current-password">
                 </div>
 
-                <span class="invalid-feedback" role="alert">
+                <div class="form-group">
+                    <span class="invalid-feedback" role="alert">
                     <strong><?= $LAVA->session->flashdata('err_message'); ?></strong>
                 </span>
+                </div>
 
 
                 <input type="submit" value="Login" class="submit-btn">
