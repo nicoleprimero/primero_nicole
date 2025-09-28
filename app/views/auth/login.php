@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>✨ Login</title>  
+    <title>✨ Login</title>
     <link rel="icon" type="image/png" href="<?=base_url();?>public/img/favicon.ico"/>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -12,42 +12,34 @@
     <link href="<?=base_url();?>public/css/main.css" rel="stylesheet">
     <link href="<?=base_url();?>public/css/style.css" rel="stylesheet">
     <link href="<?=base_url();?>public/css/style2.css" rel="stylesheet">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-    <?php include APP_DIR.'views/templates/nav_auth.php'; ?>
+    <!-- ✅ Removed nav_auth.php include -->
 
     <!-- Main Content -->
     <div class="main-content">
         <div class="center-box">
-            <h1>🔮 Login</h1>
+            <h1>🌟 Login</h1>
 
             <?php flash_alert(); ?>
-            <form id="logForm" method="POST" action="<?=site_url('auth/login');?>">
+            <form id="loginForm" method="POST" action="<?=site_url('auth/login');?>">
 
                 <?php csrf_field(); ?>
-                <?php $LAVA =& lava_instance(); ?>
 
                 <div class="form-group">
                     <label for="email">Email Address:</label>
-                    <input id="email" type="email" 
-                           class="form-control <?=$LAVA->session->flashdata('is_invalid');?>"
-                           name="email" value="" required autocomplete="email" autofocus>
-                    <span class="invalid-feedback" role="alert">
-                        <strong><?= $LAVA->session->flashdata('err_message'); ?></strong>
-                    </span>
+                    <input id="email" type="email" class="form-control" 
+                           name="email" required>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input id="password" type="password" class="form-control" 
-                           name="password" minlength="8" required autocomplete="current-password">
+                           name="password" required>
                 </div>
 
                 <input type="submit" value="Login" class="submit-btn">
-
-                <div class="form-links">
-                    <a href="<?=site_url('auth/password-reset');?>">Forgot Your Password?</a>
-                </div>
 
                 <!-- Navigation between login/register -->
                 <div class="form-links">
@@ -67,9 +59,9 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <script>
         $(function() {
-            var logForm = $("#logForm");
-            if(logForm.length) {
-                logForm.validate({
+            var loginForm = $("#loginForm");
+            if(loginForm.length) {
+                loginForm.validate({
                     rules: {
                         email: { required: true },
                         password: { required: true }
