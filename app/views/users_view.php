@@ -28,7 +28,7 @@
 
 
 
-  <a href="<?= site_url('users/account'); ?>" class="btn btn-add">View Account</a>
+  <a href="<?= site_url('users/view'); ?>" class="btn btn-add">View Fairy</a>
   <a href="<?= site_url('users/add_User'); ?>" class="btn btn-add">+ Add User</a>
 </div>
 
@@ -40,6 +40,8 @@
         <th>Username</th>
         <th>Email</th>
         <th>Role</th>
+        <th>Created At</th>
+        <th>Updated At</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -50,6 +52,8 @@
             <td><?= $user['username']; ?></td>
             <td><?= $user['email']; ?></td>
             <td><?= $user['role']; ?></td>
+            <td><?= $user['created_at']; ?></td>
+            <td><?= $user['updated_at']; ?></td>
             <td>
               <a href="<?= site_url('users/update_User/'.$user['id']); ?>" class="btn btn-edit">Edit</a> | 
               <a href="<?= site_url('users/delete/'.$user['id']); ?>" 
@@ -67,4 +71,4 @@
 
 
 </body>
-</html>
+</html>  

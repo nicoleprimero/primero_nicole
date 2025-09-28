@@ -16,7 +16,10 @@ class UserController extends Controller {
         }
     
     }
-
+    
+    public function user_view(){
+        $this->call->view('users_view');
+    }
     
 
 
