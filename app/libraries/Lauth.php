@@ -119,8 +119,7 @@ class Lauth {
 
     $user = $LAVA->db->table('users')
                      ->where('email', $email)
-                     ->get()
-                     ->getRowArray();
+                     ->get();
 
     if (!$user) {
         // Email not found
