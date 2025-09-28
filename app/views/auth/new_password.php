@@ -6,7 +6,7 @@
 	<title>New Password</title>
 	<link rel="icon" type="image/png" href="<?=base_url();?>public/img/favicon.ico"/>
     <link href="<?=base_url();?>public/css/main.css" rel="stylesheet">
-    <link href="<?=base_url();?>public/css/style.css" rel="stylesheet">
+    <link href="<?=base_url();?>public/css/style2.css" rel="stylesheet">
 </head>
 <body>
     <?php
