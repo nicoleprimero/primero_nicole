@@ -7,7 +7,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
  * Automatically generated via CLI.
  */
 class UserModel extends Model {
-    protected $table = 'magicusers';
+    protected $table = 'users';
     protected $primary_key = 'id';
 
     public function __construct()
@@ -21,25 +21,25 @@ class UserModel extends Model {
             'email' => $email,
             'role' => $role
         );
-        return $this->db->table('magicusers')->insert($data);
+        return $this->db->table('users')->insert($data);
     }   
 
     public function get_one($id){
-       return $this->db->table('magicusers')->where('id', $id)->get();
+       return $this->db->table('users')->where('id', $id)->get();
     }
 
     
 
    public function delete($id) {
-       return $this->db->table('magicusers')->where('id', $id)->delete();
+       return $this->db->table('users')->where('id', $id)->delete();
    }
 
 
    public function page($q, $records_per_page = null, $page = null) {
             if (is_null($page)) {
-                return $this->db->table('magicusers')->get_all();
+                return $this->db->table('users')->get_all();
             } else {
-                $query = $this->db->table('magicusers');
+                $query = $this->db->table('users');
                 
                 // Build LIKE conditions
                 $query->like('id', '%'.$q.'%')
@@ -62,7 +62,7 @@ class UserModel extends Model {
         }
 
 
-     public function acc($q, $records_per_page = null, $acc = null) {
+    /* public function acc($q, $records_per_page = null, $acc = null) {
             if (is_null($acc)) {
                 return $this->db->table('users')->get_all();
             } else {
@@ -87,7 +87,7 @@ class UserModel extends Model {
                 return $data;
             }
         }
-
+*/
 
 
     /*public function count_all_records()

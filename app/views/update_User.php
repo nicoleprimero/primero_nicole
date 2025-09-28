@@ -34,7 +34,7 @@
                 </div>
                 <input type="submit" value="Update" class="submit-btn">
             </form>
-            <a href="<?=site_url('users/view');?>" class="back-btn">← Go Back</a>
+            <a href="<?=site_url('users/account');?>" class="back-btn">← Go Back</a>
         </div>
     </div>
 </body>

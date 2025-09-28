@@ -28,7 +28,7 @@
 
 
 
-  <a href="<?= site_url('users/view'); ?>" class="btn btn-add">View Fairy</a>
+
   <a href="<?= site_url('users/add_User'); ?>" class="btn btn-add">+ Add User</a>
 </div>
 
@@ -66,7 +66,7 @@
     </tbody>
   </table>
   	<?php
-	echo $acc;?>
+	echo $page;?>
 </div>
 
 

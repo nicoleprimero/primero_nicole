@@ -77,7 +77,7 @@ class UserController extends Controller {
         redirect('users/view');
     }
 
-    public function get_all()
+ /*   public function get_all()
 {
     // Current page
     $page = 1;
@@ -108,7 +108,7 @@ class UserController extends Controller {
         $data['page'] = $this->pagination->paginate();
         $this->call->view('view_page', $data);
     }
-
+*/
 
  public function get_account()
 {
