@@ -121,7 +121,7 @@ body, html {
 <div class="landing-page">
     <h1>✨ Welcome, Traveler! ✨</h1>
     <p>Step into a realm of wonder, where magic awaits at every turn.</p>
-    <a href="<?= base_url(); ?>login" class="magic-wand-btn">
+    <a href="<?= base_url(); ?>/start" class="magic-wand-btn">
         <img src="<?= base_url(); ?>/public/images/wand.png" alt="Magic Wand">
         <span>Begin the Journey</span>
     </a>
