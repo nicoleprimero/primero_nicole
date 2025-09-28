@@ -118,8 +118,7 @@ class Lauth {
     // ✅ Get single user row
     $user = $this->LAVA->db->table('users')
                      ->where('email', $email)
-                     ->get()
-                     ->getRowArray();
+                     ->get();
 
     if ($user && password_verify($password, $user['password'])) {
 
