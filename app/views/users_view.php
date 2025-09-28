@@ -29,7 +29,7 @@
 
 
 
-  <a href="<?= site_url('users/add_User'); ?>" class="btn btn-add">+ Add User</a>
+  <a href="<?= site_url('/login'); ?>" class="btn btn-add">+ Add User</a>
 </div>
 
 <div class="table-container">

@@ -15,7 +15,7 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
-    <!-- ✅ Removed nav_auth.php include -->
+    
 
     <!-- Main Content -->
     <div class="main-content">
