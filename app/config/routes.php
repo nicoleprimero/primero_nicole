@@ -65,7 +65,7 @@ $router->match('/students/search', 'UserController::search', array('GET', 'POST'
 
 
 $router->get('/', 'Auth');
-$router->get('/home', 'UserController::get_all');
+$router->get('/home', 'UserController::get_account');
 $router->group('/auth', function() use ($router){
     $router->match('/register', 'Auth::register', ['POST', 'GET']);
     $router->match('/login', 'Auth::login', ['POST', 'GET']);
