@@ -97,7 +97,7 @@ class Lauth {
 	 * @param  string $password Password
 	 * @return string Validated Username
 	 */
-	public function login($email, $password, $role='Admin')
+	/*public function login($email, $password, $role='Admin')
 	{				
     	$row = $this->LAVA->db
     					->table('users') 					
@@ -110,7 +110,37 @@ class Lauth {
 				return false;
 			}
 		}
-	}
+	}*/
+
+	 public function login($email, $password)
+{
+    // ✅ Get single user row
+    $user = $this->db->table('users')
+                     ->where('email', $email)
+                     ->get()
+                     ->getRowArray();
+
+    if ($user && password_verify($password, $user['password'])) {
+
+        // ✅ Only allow Admins
+        if (isset($user['role']) && $user['role'] === 'Admin') {
+            $this->session->set_userdata([
+                'user_id'   => $user['id'],
+                'email'     => $user['email'],
+                'role'      => $user['role'],
+                'logged_in' => true
+            ]);
+            return true; // login success
+        } else {
+            // ❌ Role mismatch
+            return false;
+        }
+    }
+
+    // ❌ Wrong password or user not found
+    return false;
+}
+
 
 	/**
 	 * Change Password
