@@ -76,7 +76,8 @@
                     },
                     messages: {
                         email: { required: "Please input your email address." },
-                        password: { required: "Please input your password." }
+                        password: { required: "Please input your password." },
+                        role: { required: "⛔ Access denied. Admins only."},
                     }
                 })
             }
