@@ -35,11 +35,11 @@ class UserModel extends Model {
    }
 
 
-   public function page($q, $records_per_page = null, $page = null) {
+  /* public function page($q, $records_per_page = null, $page = null) {
             if (is_null($page)) {
-                return $this->db->table('users')->get_all();
+                return $this->db->table('magicusers')->get_all();
             } else {
-                $query = $this->db->table('users');
+                $query = $this->db->table('magicusers');
                 
                 // Build LIKE conditions
                 $query->like('id', '%'.$q.'%')
@@ -60,9 +60,9 @@ class UserModel extends Model {
                 return $data;
             }
         }
+*/
 
-
-    /* public function acc($q, $records_per_page = null, $acc = null) {
+    public function acc($q, $records_per_page = null, $acc = null) {
             if (is_null($acc)) {
                 return $this->db->table('users')->get_all();
             } else {
@@ -87,7 +87,7 @@ class UserModel extends Model {
                 return $data;
             }
         }
-*/
+
 
 
     /*public function count_all_records()
