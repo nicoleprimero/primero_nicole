@@ -43,7 +43,7 @@ class UserController extends Controller {
 
            
             $this->session->set_flashdata('success','User added successfully!');
-            redirect('users/view');
+            redirect('users/account');
             }
             else
             {
@@ -64,7 +64,7 @@ class UserController extends Controller {
                 'role' => $this->io->post('role')
             ];
             $this->UserModel->update($id, $data);
-            redirect('users/view');
+            redirect('users/account');
         }
         else
         {
@@ -74,7 +74,7 @@ class UserController extends Controller {
 
     public function delete($id) {
         $this->UserModel->delete($id);
-        redirect('users/view');
+        redirect('users/account');
     }
 
  /*   public function get_all()
