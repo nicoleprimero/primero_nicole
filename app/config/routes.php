@@ -43,7 +43,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |
 */
 
-$router->get('/', 'UserController::landing_page');
+//$router->get('/', 'UserController::landing_page');
 
 $router->get('/users/view', 'UserController::get_all');
 $router->match('/users/add_User', 'UserController::create', ['GET', 'POST']);
@@ -51,9 +51,24 @@ $router->match('/users/update_User/{id}', 'UserController::update', array('GET',
 $router->match('/users/delete/{id}', 'UserController::delete', array('GET', 'POST'));
 
 
+
+
 /*$router->match('/update', 'UserController::update', array('GET', 'POST'));
 $router->match('/update/{id}', 'UserController::update', array('GET', 'POST')); */
 
-
+/*
 $router->match('/get_all/{page}', 'UserController::get_all', array('GET', 'POST'));
 $router->match('/students/search', 'UserController::search', array('GET', 'POST'));
+*/
+
+
+
+$router->get('/', 'Auth');
+$router->get('/home', 'Home');
+$router->group('/auth', function() use ($router){
+    $router->match('/register', 'Auth::register', ['POST', 'GET']);
+    $router->match('/login', 'Auth::login', ['POST', 'GET']);
+    $router->get('/logout', 'Auth::logout');
+    $router->match('/password-reset', 'Auth::password_reset', ['POST', 'GET']);
+    $router->match('/set-new-password', 'Auth::set_new_password', ['POST', 'GET']);
+});   

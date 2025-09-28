@@ -10,8 +10,8 @@ class UserController extends Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->call->library('pagination');
-        $this->call->library('session'); 
+      
+       
         
     }
 
@@ -20,7 +20,9 @@ class UserController extends Controller {
         $data['s'] = $this->UserModel->all();
         $this->call->view('get_all', $data);
     }*/
-        public function landing_page() {
+
+
+    public function landing_page() {
         $this->call->view('create');
     }
 
