@@ -71,13 +71,14 @@ class Lauth {
 	 * @param  string $usertype   Usertype
 	 * @return $this
 	 */
-	public function register($username, $email, $password, $email_token)
+	public function register($username, $email, $password, $email_token, $role='Fairy')
 	{
 		$this->LAVA->db->transaction();
 		$data = array(
 			'username' => $username,
 			'password' => $this->passwordhash($password),
 			'email' => $email,
+			'role'=> $role,
 			'email_token' => $email_token
 		);
 
@@ -115,7 +116,7 @@ class Lauth {
 	 public function login($email, $password)
 {
     // ✅ Get single user row
-    $user = $this->db->table('users')
+    $user = $this->LAVA->db->table('users')
                      ->where('email', $email)
                      ->get()
                      ->getRowArray();
