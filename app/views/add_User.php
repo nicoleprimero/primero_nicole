@@ -23,6 +23,12 @@
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="password">Email:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+
                 <div class="form-group">
                     <label for="role">Role:</label>
                     <select id="role" name="role" required>
@@ -34,7 +40,7 @@
                 </div>
                 <input type="submit" value="Add" class="submit-btn">
             </form>
-            <a href="<?=site_url('users/view');?>" class="back-btn">← Go Back</a>
+            <a href="<?=site_url('users/account');?>" class="back-btn">← Go Back</a>
         </div>
     </div>
 </body>
