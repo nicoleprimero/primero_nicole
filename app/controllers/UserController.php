@@ -113,7 +113,7 @@ class UserController extends Controller {
  public function get_account()
 {
     // Current page
-    $page = 1;
+    $acc = 1;
     if (isset($_GET['acc']) && ! empty($_GET['acc'])) {
         $page = $this->io->get('acc');
     }
@@ -126,7 +126,7 @@ class UserController extends Controller {
 
     $records_per_page = 10;
 
-    $all = $this->UserModel->acc($q, $records_per_page, $page);
+    $all = $this->UserModel->acc($q, $records_per_page, $acc);
         $data['all'] = $all['records'];
         $total_rows = $all['total_rows'];
         $this->pagination->set_options([
@@ -138,6 +138,6 @@ class UserController extends Controller {
         ]);
         $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
         $this->pagination->initialize($total_rows, $records_per_page, $page, 'users/account?q='.$q, 1);
-        $data['page'] = $this->pagination->paginate();
+        $data['acc'] = $this->pagination->paginate();
         $this->call->view('users_view', $data);
     }}

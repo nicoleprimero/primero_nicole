@@ -62,7 +62,7 @@ class UserModel extends Model {
         }
 
 
-     public function acc($q, $records_per_page = null, $page = null) {
+     public function acc($q, $records_per_page = null, $acc = null) {
             if (is_null($acc)) {
                 return $this->db->table('users')->get_all();
             } else {
@@ -81,7 +81,7 @@ class UserModel extends Model {
                 $data['total_rows'] = $countQuery->select_count('*', 'count')
                                                 ->get()['count'];
 
-                $data['records'] = $query->pagination($records_per_page, $page)
+                $data['records'] = $query->pagination($records_per_page, $acc)
                                         ->get_all();
 
                 return $data;

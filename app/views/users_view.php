@@ -66,7 +66,7 @@
     </tbody>
   </table>
   	<?php
-	echo $page;?>
+	echo $acc;?>
 </div>
 
 
