@@ -11,9 +11,7 @@ class UserController extends Controller {
     {
         parent::__construct();
       
-        if(! logged_in()) {
-            redirect('auth');
-        }
+        
     
     }
     
@@ -25,6 +23,7 @@ class UserController extends Controller {
 
     public function landing_page() {
         $this->call->view('create');
+
     }
 
    
