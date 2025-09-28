@@ -24,6 +24,7 @@ class UserController extends Controller {
     public function landing_page() {
         $this->call->view('create');
 
+       
     }
 
    
@@ -76,6 +77,50 @@ class UserController extends Controller {
         redirect('users/account');
     }
 
+    public function get_account()
+{
+    // ✅ Check if logged in
+    if (! logged_in()) {
+        redirect('auth');
+        return; // stop execution after redirect
+    }
+
+    // Current page
+    $acc = 1;
+    if (isset($_GET['acc']) && ! empty($_GET['acc'])) {
+        $acc = $this->io->get('acc'); // fixed: was $page but should update $acc
+    }
+
+    // Search term
+    $q = '';
+    if (isset($_GET['q']) && ! empty($_GET['q'])) {
+        $q = trim($this->io->get('q'));
+    }
+
+    $records_per_page = 10;
+
+    $all = $this->UserModel->acc($q, $records_per_page, $acc);
+
+    $data['all'] = $all['records'];
+    $total_rows  = $all['total_rows'];
+
+    $this->pagination->set_options([
+        'first_link'     => '⏮ First',
+        'last_link'      => 'Last ⏭',
+        'next_link'      => 'Next →',
+        'prev_link'      => '← Prev',
+        'page_delimiter' => '&page='
+    ]);
+
+    $this->pagination->set_theme('bootstrap'); // or 'tailwind', or 'custom'
+    $this->pagination->initialize($total_rows, $records_per_page, $acc, 'users/account?q='.$q, 1);
+
+    $data['acc'] = $this->pagination->paginate();
+
+    $this->call->view('users_view', $data);
+}
+}
+
  /*   public function get_all()
 {
     // Current page
@@ -109,7 +154,7 @@ class UserController extends Controller {
     }
 */
 
- public function get_account()
+ /* public function get_account()
 {
     // Current page
     $acc = 1;
@@ -139,4 +184,4 @@ class UserController extends Controller {
         $this->pagination->initialize($total_rows, $records_per_page, $acc, 'users/account?q='.$q, 1);
         $data['acc'] = $this->pagination->paginate();
         $this->call->view('users_view', $data);
-    }}
+    }} */
